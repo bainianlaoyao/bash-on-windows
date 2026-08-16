@@ -25,7 +25,8 @@
 
 ```powershell
 # 1) 宿主平面(bundle patch)
-dsh plugin --profile web add github:bainianlaoyao/windows-bash
+dsh plugin --profile web add github:bainianlaoyao/windows-bash   # GitHub 分发
+dsh plugin --profile web add windows-bash                        # npm 分发(已发布;预构建安装免 allowBuilds)
 #    或手动把 cordis.patch.yml 里的 6 行补进 profile 的 cordis.patch.yml
 
 # 2) 会话平面(三个 bash-only 预设,junction 安装,不复制代码)

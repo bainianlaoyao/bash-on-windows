@@ -25,7 +25,8 @@ Unlike [`dsh-bash-terminal`](https://github.com/MAXeaglet/dsh-bash-terminal) (sw
 
 ```powershell
 # 1) Host plane (bundle patch)
-dsh plugin --profile web add github:bainianlaoyao/windows-bash
+dsh plugin --profile web add github:bainianlaoyao/windows-bash   # GitHub distribution
+dsh plugin --profile web add windows-bash                        # npm distribution (published; prebuilt install skips allowBuilds)
 #    or copy the rows from cordis.patch.yml into the profile patch layer
 
 # 2) Session plane (three bash-only presets, junction install, no code copy)
