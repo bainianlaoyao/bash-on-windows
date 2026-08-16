@@ -1,0 +1,64 @@
+# windows-bash
+
+Make **Git Bash the only terminal tool for DeepSeek Harness on Windows** (bundle + agent presets).
+
+Stock dsh exposes **PowerShell only** on Windows (`dsh-base` mounts `tool-pwsh`/`pwsh-sandbox` on win32 and disables the bash counterparts via `process.platform` expressions). This plugin flips that default to **Git Bash only**. On macOS/Linux the stock default is already bash-only, so the plugin is a no-op there.
+
+Unlike [`dsh-bash-terminal`](https://github.com/MAXeaglet/dsh-bash-terminal) (switchable PowerShell / Git Bash / WSL), this plugin is strictly "only": PowerShell is removed from both the runtime and the model-facing tool surface.
+
+## Components
+
+| Component | Purpose |
+|---|---|
+| `cordis.patch.yml` | bundle patch (`dsh.bundle.patch`): host-plane flips — `tool-bash` enabled, `tool-pwsh` disabled; executors `bash-sandbox` enabled, `pwsh-sandbox` disabled; win32 sandbox default `danger-full-access` + approval `never` (`DSH_PERMISSION_MODE` escape hatch; non-Windows untouched) |
+| `presets/standard-bash` `code-bash` `cordis-bash` | bash-only preset variants (stock preset + two-line flip), because a bundle patch cannot modify dsh's shipped preset files |
+| `scripts/install.ps1` | installs the three presets as junctions under `$DSH_HOME\.agent-presets\` (`-Uninstall` supported) |
+| `scripts/build-presets.mjs` | regenerates the variants from a pristine `@deepseek-ai/dsh` source (after dsh upgrades) |
+| `scripts/check-rows.mjs` | contract test: bash-only invariants of presets and patch |
+
+## How it works (two planes, both required)
+
+1. **Host plane (bundle patch)**: the `bash` tool's executor is `bash-sandbox` (it spawns `bash` from PATH = Git Bash on Windows); `pwsh-sandbox` is disabled, so PowerShell does not exist at runtime.
+2. **Session plane (derived presets)**: the web surface (`dsh-web-app`) disables both host shell rows and lets each session mount tools from its preset. Making the model see only bash therefore requires the preset files — which is exactly what used to be a fragile local edit of shipped files. This plugin turns it into distributable derived presets that never touch shipped files.
+
+## Install
+
+```powershell
+# 1) Host plane (bundle patch)
+dsh plugin --profile web add github:bainianlaoyao/windows-bash
+#    or copy the rows from cordis.patch.yml into the profile patch layer
+
+# 2) Session plane (three bash-only presets, junction install, no code copy)
+powershell -ExecutionPolicy Bypass -File scripts/install.ps1
+
+# 3) Restart dsh, create a session, pick the standard-bash / code-bash / cordis-bash preset
+```
+
+Prerequisite: [Git for Windows](https://git-scm.com) installed (`bash` on PATH).
+
+The npm package name equals the repo name: `windows-bash` (also installable by adding `"windows-bash"` to `dsh.profile.bundles` and running `pnpm install`).
+
+## Uninstall
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install.ps1 -Uninstall
+# remove the bundle rows from the profile patch layer manually
+```
+
+## Test
+
+```bash
+node scripts/check-rows.mjs   # contract: bash-only invariants across presets and patch
+```
+
+## After a dsh upgrade
+
+Run `node scripts/build-presets.mjs --src <pristine agent-presets dir>` to regenerate the variants and commit them; the host-plane patch needs no changes (target row ids are provided by the official packages).
+
+## Security
+
+See [SECURITY.md](./SECURITY.md) — important: on win32 the default sandbox is `danger-full-access` with approval `never`; this is a hard requirement of Git Bash's cygwin runtime.
+
+## License
+
+MIT. The derived presets come from DeepSeek Harness agent presets (MIT, Copyright (c) 2026 DeepSeek); each preset directory carries a `LICENSE.deepseek-harness`.

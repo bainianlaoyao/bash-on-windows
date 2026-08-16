@@ -1,0 +1,42 @@
+{
+  "name": "windows-bash",
+  "description": "Make Git Bash the only terminal tool for DeepSeek Harness on Windows: enables the bash executor and tool on win32, disables PowerShell (pwsh) everywhere, ships standard-bash/code-bash/cordis-bash agent presets, and sets the sandbox/approval defaults Git Bash's cygwin runtime needs.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "git-bash",
+    "windows",
+    "terminal",
+    "pwsh",
+    "bash"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bainianlaoyao/windows-bash.git"
+  },
+  "files": [
+    "cordis.patch.yml",
+    "presets",
+    "scripts",
+    "dsh.plugin.json",
+    "README.md",
+    "README.en.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "devDependencies": {
+    "js-yaml": "^4.3.1"
+  },
+  "scripts": {
+    "test": "node scripts/check-rows.mjs"
+  }
+}

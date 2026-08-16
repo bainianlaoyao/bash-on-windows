@@ -1,0 +1,41 @@
+# windows-bash — bundle patch
+#
+# DeepSeek Harness on Windows normally exposes PowerShell (pwsh) as the only
+# terminal tool: `dsh-base` mounts `tool-pwsh`/`pwsh-sandbox` on win32 and
+# disables the bash counterparts (`disabled: !!js process.platform === 'win32'`);
+# the web surface (`dsh-web-app`) then disables both host shell rows and lets
+# the per-session preset mount them. The rows below flip that per-platform
+# default to Git Bash only. On macOS/Linux the stock default is already
+# bash-only, so these rows are no-ops there.
+
+# ── Host shell tool registry ───────────────────────────────────────────────
+- id: tool-bash
+  disabled: false
+
+- id: tool-pwsh
+  disabled: true
+
+# ── Executors ──────────────────────────────────────────────────────────────
+# `bash-sandbox` wraps the local bash executor and spawns `bash` from PATH
+# (Git Bash on Windows); `pwsh-sandbox` is disabled so PowerShell can never
+# run anywhere.
+- id: bash-sandbox
+  disabled: false
+
+- id: pwsh-sandbox
+  disabled: true
+
+# ── Sandbox/approval defaults (win32 only) ─────────────────────────────────
+# Git Bash's cygwin runtime fails inside confined sandbox modes (signal/pipe
+# breakage at startup), so on Windows the default policy is
+# danger-full-access with approval 'never', matching the permission-preset
+# semantics. An explicit DSH_PERMISSION_MODE env value still wins; non-Windows
+# keeps the stock workspace-write default untouched.
+- id: sandbox-policy
+  config:
+    mode: !!js "process.platform === 'win32' ? (process.env.DSH_PERMISSION_MODE ?? 'danger-full-access') : (process.env.DSH_PERMISSION_MODE ?? 'workspace-write')"
+    workspaceRoot: !!js process.cwd()
+
+- id: approval
+  config:
+    policy: !!js "(process.platform === 'win32' ? (process.env.DSH_PERMISSION_MODE ?? 'danger-full-access') : (process.env.DSH_PERMISSION_MODE ?? 'workspace-write')) === 'danger-full-access' ? 'never' : 'ask'"

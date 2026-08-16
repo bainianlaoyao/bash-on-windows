@@ -1,0 +1,9 @@
+{
+  "name": "windows-bash",
+  "description": "Git Bash as the only terminal tool for DeepSeek Harness on Windows",
+  "version": "0.1.0",
+  "entry": {
+    "name": "windows-bash",
+    "inject": []
+  }
+}
