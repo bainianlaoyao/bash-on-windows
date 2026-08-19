@@ -24,7 +24,7 @@ A DeepSeek Harness plugin (bundle + agent presets): on Windows, the available ba
 ```powershell
 # 1) Host plane (bundle patch)
 dsh plugin --profile web add github:bainianlaoyao/bash-on-windows   # GitHub distribution
-dsh plugin --profile web add bash-on-windows                        # npm distribution (published; prebuilt install skips allowBuilds)
+dsh plugin --profile web add dsh-bash-on-windows                   # npm distribution (published; prebuilt install skips allowBuilds)
 #    or copy the rows from cordis.patch.yml into the profile patch layer
 
 # 2) Session plane (three bash-only presets, junction install, no code copy)
@@ -35,7 +35,7 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 
 Prerequisite: [Git for Windows](https://git-scm.com) installed (`bash` on PATH).
 
-The npm package name equals the repo name: `bash-on-windows` (also installable by adding `"bash-on-windows"` to `dsh.profile.bundles` and running `pnpm install`).
+The npm package name is `dsh-bash-on-windows` (the repo is `bash-on-windows`; also installable by adding `"dsh-bash-on-windows"` to `dsh.profile.bundles` and running `pnpm install`).
 
 ## Uninstall
 

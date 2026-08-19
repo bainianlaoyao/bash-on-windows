@@ -24,7 +24,7 @@ DeepSeek Harness 插件(bundle + agent preset):让 **Windows 上可用的 bash �
 ```powershell
 # 1) 宿主平面(bundle patch)
 dsh plugin --profile web add github:bainianlaoyao/bash-on-windows   # GitHub 分发
-dsh plugin --profile web add bash-on-windows                        # npm 分发(已发布;预构建安装免 allowBuilds)
+dsh plugin --profile web add dsh-bash-on-windows                    # npm 分发(已发布;预构建安装免 allowBuilds)
 #    或手动把 cordis.patch.yml 里的 6 行补进 profile 的 cordis.patch.yml
 
 # 2) 会话平面(三个 bash-only 预设,junction 安装,不复制代码)
@@ -35,7 +35,7 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 
 前置条件:已安装 [Git for Windows](https://git-scm.com)(`bash` 在 PATH 中)。
 
-npm 包名与仓库名相同:`bash-on-windows`(`dsh.profile.bundles` 里加入 `"bash-on-windows"` 后 `pnpm install` 亦可)。
+npm 包名:`dsh-bash-on-windows`(仓库名 `bash-on-windows`;`dsh.profile.bundles` 里加入 `"dsh-bash-on-windows"` 后 `pnpm install` 亦可)。
 
 ## 卸载
 

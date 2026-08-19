@@ -1,5 +1,5 @@
 {
-  "name": "bash-on-windows",
+  "name": "dsh-bash-on-windows",
   "description": "On Windows, the available bash tool is limited to Git Bash and PowerShell is disabled.",
   "version": "0.1.0",
   "license": "MIT",
