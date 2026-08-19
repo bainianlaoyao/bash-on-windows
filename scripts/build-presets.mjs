@@ -52,10 +52,10 @@ const FLIPS = [
   },
 ]
 
-const BANNER = `# windows-bash variant: Git Bash is the ONLY terminal tool on every platform;
+const BANNER = `# bash-on-windows variant: Git Bash is the ONLY terminal tool on every platform;
 # pwsh is fully disabled. Regenerated from the pristine @deepseek-ai/dsh agent
 # preset by scripts/build-presets.mjs (byte-identical to stock apart from the
-# shell section). Requires the windows-bash bundle patch for the
+# shell section). Requires the bash-on-windows bundle patch for the
 # executor/sandbox plane (danger-full-access on win32 — confined modes kill
 # git-bash at startup).
 

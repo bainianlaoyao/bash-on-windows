@@ -1,10 +1,10 @@
 # Security
 
-windows-bash 会在 **Windows** 上修改 DeepSeek Harness 的默认凭证/沙箱策略。安装前请阅读本节。
+bash-on-windows 会在 **Windows** 上修改 DeepSeek Harness 的默认凭证/沙箱策略。安装前请阅读本节。
 
 ## 改动一览(仅 win32)
 
-| 设置 | 官方默认 | windows-bash |
+| 设置 | 官方默认 | bash-on-windows |
 |---|---|---|
 | 终端工具 | 仅 PowerShell (pwsh) | 仅 Git Bash (bash) |
 | `sandbox-policy.mode` | `workspace-write` | `danger-full-access` |

@@ -1,4 +1,4 @@
-# windows-bash - local deployment script (Windows junctions, no code copy).
+# bash-on-windows - local deployment script (Windows junctions, no code copy).
 #
 # Serves the bash-only preset variants from the repo through junctions, so
 # edits in the repo take effect without re-copying:
@@ -9,7 +9,7 @@
 #
 # The host-plane flip (executor + sandbox/approval) is NOT applied here: it
 # ships as the bundle patch (cordis.patch.yml). Install it with
-#   dsh plugin --profile web add github:bainianlaoyao/windows-bash
+#   dsh plugin --profile web add github:bainianlaoyao/bash-on-windows
 # or copy the rows from cordis.patch.yml into the profile's cordis.patch.yml.
 #
 # Usage:
@@ -49,7 +49,7 @@ function Remove-Junction([string]$Link) {
 }
 
 if ($Uninstall) {
-    Write-Host "Removing windows-bash preset junctions..."
+    Write-Host "Removing bash-on-windows preset junctions..."
     foreach ($name in $PresetNames) {
         Remove-Junction (Join-Path $DshHome ".agent-presets\$name")
     }
@@ -61,7 +61,7 @@ if (-not (Test-Path $DshHome)) {
     throw "DSH home not found: $DshHome"
 }
 
-Write-Host "Installing windows-bash presets into $DshHome (repo: $Repo)"
+Write-Host "Installing bash-on-windows presets into $DshHome (repo: $Repo)"
 foreach ($name in $PresetNames) {
     New-Junction (Join-Path $DshHome ".agent-presets\$name") (Join-Path $Repo "presets\$name")
 }
@@ -73,7 +73,7 @@ if (-not $hasBash) {
 
 Write-Host ""
 Write-Host "Next steps:"
-Write-Host "  1. Host plane: dsh plugin --profile web add github:bainianlaoyao/windows-bash"
+Write-Host "  1. Host plane: dsh plugin --profile web add github:bainianlaoyao/bash-on-windows"
 Write-Host "     (or copy the rows from cordis.patch.yml into the profile patch layer)."
 Write-Host "  2. Restart dsh, then create a session with the 'standard-bash' / 'code-bash' / 'cordis-bash' preset."
 Write-Host "  3. Regression: cd $Repo ; node scripts/check-rows.mjs"

@@ -1,9 +1,9 @@
 {
-  "name": "windows-bash",
-  "description": "Git Bash as the only terminal tool for DeepSeek Harness on Windows",
+  "name": "bash-on-windows",
+  "description": "On Windows, the available bash tool is limited to Git Bash; PowerShell is disabled.",
   "version": "0.1.0",
   "entry": {
-    "name": "windows-bash",
+    "name": "bash-on-windows",
     "inject": []
   }
 }
