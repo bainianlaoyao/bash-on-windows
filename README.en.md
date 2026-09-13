@@ -58,6 +58,22 @@ Run `node scripts/build-presets.mjs --src <pristine agent-presets dir>` to regen
 
 See [SECURITY.md](./SECURITY.md) — important: on win32 the default sandbox is `danger-full-access` with approval `never`; this is a hard requirement of Git Bash's cygwin runtime.
 
+## Related plugins
+
+Other dsh plugins by the same author, all listed in the
+[dsh plugin market](https://awesome-dsh-plugin.com/):
+
+- [`dsh-codex-mode`](https://github.com/bainianlaoyao/dsh-codex-harness) — a Codex-shaped
+  coding mode for GPT-family models: `exec_command` / `write_stdin` / `apply_patch` /
+  `view_image`, both OpenAI routes, and graphical subagent types. Its presets are
+  bash-only in the same way.
+- [`dsh-llm-api-pool`](https://github.com/bainianlaoyao/dsh-llm-api-pool) — pool several
+  OpenAI-compatible API keys and hot-switch by remaining balance.
+- [`dsh-session-robustness`](https://github.com/bainianlaoyao/dsh-session-robustness) —
+  keep long sessions recoverable.
+- [`dsh-easy-archive`](https://github.com/bainianlaoyao/easy-archive) — two-step inline
+  archiving from the workspace sidebar.
+
 ## License
 
 MIT. The derived presets come from DeepSeek Harness agent presets (MIT, Copyright (c) 2026 DeepSeek); each preset directory carries a `LICENSE.deepseek-harness`.

@@ -58,6 +58,15 @@ node scripts/check-rows.mjs   # 契约:三个预设 + patch 的 bash-only 不变
 
 见 [SECURITY.md](./SECURITY.md)——重要:win32 默认沙箱为 `danger-full-access` 且审批为 `never`,这是 git bash cygwin 运行时的硬性要求。
 
+## 相关插件
+
+同一作者的其它 dsh 插件，均已收录于 [dsh 插件市场](https://awesome-dsh-plugin.com/)：
+
+- [`dsh-codex-mode`](https://github.com/bainianlaoyao/dsh-codex-harness) —— 面向 GPT 系模型的 Codex 形状编码预设：`exec_command` / `write_stdin` / `apply_patch` / `view_image`、OpenAI Chat Completions 与 Responses 两条路由，外加图形化子代理类型。其预设同样只挂 `tool-bash`。
+- [`dsh-llm-api-pool`](https://github.com/bainianlaoyao/dsh-llm-api-pool) —— 聚合多个 OpenAI 兼容 API key，按余额热切换。
+- [`dsh-session-robustness`](https://github.com/bainianlaoyao/dsh-session-robustness) —— 让长会话保持可恢复。
+- [`dsh-easy-archive`](https://github.com/bainianlaoyao/easy-archive) —— 工作区侧边栏行内两步归档会话。
+
 ## 许可
 
 MIT。派生预设来自 DeepSeek Harness agent presets(MIT,Copyright (c) 2026 DeepSeek),各预设目录内附 `LICENSE.deepseek-harness`。
